@@ -51,6 +51,9 @@ exports.findByKeywords = (req, res) => {
     let tag = req.body.tag;
     let keywords = req.body.keywords;
     faunaModel.findByKeywords(tag, keywords, function(data){
+        data.sort((first, second) => {
+            return first.Date - second.Date;
+        })
         res.send({objects: data});
     });
 }
