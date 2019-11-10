@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="row">
+
+    <div class="col-sm-12 col-md-5">
+      <div class="card m-2 p-3">
+
+        <div class="row">
+          <div class="col-4">{{animalName.question}}</div>
+          <div class="col-8">
+            <div class="md-form mt-0">
+              <input type="search" [(ngModel)]="animalName.answer" placeholder="Search text" list="species" (change)='selectSpecies(animalName.answer)'>
+              <datalist id="species">
+                <option *ngFor="let data of animalName.options | filter: animalName.answer" value="{{data}}"
+                  (click)='selectSpecies(data)'></option>
+              </datalist>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-4">Tags: </div>
+          <div class="col-8">
+            <div class="md-form mt-0 mb-3">
+              <input type="search" [(ngModel)]="tags.answer" placeholder="Search text" list="tagList" (change)='selectTag(tags.answer)' [disabled]='!animalName.answer'>
+              <datalist id="tagList">
+                <option *ngFor="let tag of tags.options | filter: tags.answer" value="{{tag}}" (click)='selectTag(tag)'></option>
+              </datalist>
+            </div>
+            <div class="card p-2">
+              <ul class="list-inline">
+                <li class="list-inline-item" *ngFor='let tag of tags.selectedTags'>
+                  <div class="card px-1">
+                    <p class="d-inline mb-0">{{tag}} <span style="cursor: pointer;" (click)='deselectTag(tag)'>X</span></p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+          <div class="col-4">
+            Adverts Found:
+          </div>
+          <div class="col-8">
+            {{advertsFound}}
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+          <div class="col-4">Price Range</div>
+          <div class="col-8"> {{minPrice}} to {{maxPrice}}</div>
+        </div>
+
+        <br>
+
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-7">
+      <app-graphs [numberData]='numberData' [priceData]='priceData'></app-graphs>
+    </div>
+  </div>
+</div>
